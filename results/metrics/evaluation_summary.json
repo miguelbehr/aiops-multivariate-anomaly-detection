@@ -1,0 +1,53 @@
+{
+    "baseline_isolation_forest": {
+        "modelo": "Isolation Forest (Baseline)",
+        "f1_score_estricto": 0.3943,
+        "precision_pct": 26.99,
+        "recall_pct": 73.16,
+        "fpr_pct": 20.73,
+        "lead_time_min": 14.0,
+        "verdaderos_positivos": 1971,
+        "falsos_positivos": 5332,
+        "falsos_negativos": 723,
+        "verdaderos_negativos": 20394
+    },
+    "deep_autoencoder": {
+        "modelo": "Deep Autoencoder (PyTorch)",
+        "f1_score_estricto": 0.7105,
+        "precision_pct": 85.81,
+        "recall_pct": 60.62,
+        "fpr_pct": 1.05,
+        "lead_time_min": 0.0,
+        "verdaderos_positivos": 1633,
+        "falsos_positivos": 270,
+        "falsos_negativos": 1061,
+        "verdaderos_negativos": 25456
+    },
+    "analisis_causa_raiz_top5": {
+        "top_1_metrica": {
+            "indice_variable": 33,
+            "nombre_identificador": "metric_34",
+            "error_mse_promedio": 11615810.0
+        },
+        "top_2_metrica": {
+            "indice_variable": 9,
+            "nombre_identificador": "metric_10",
+            "error_mse_promedio": 237278.0625
+        },
+        "top_3_metrica": {
+            "indice_variable": 32,
+            "nombre_identificador": "metric_33",
+            "error_mse_promedio": 36430.8945
+        },
+        "top_4_metrica": {
+            "indice_variable": 5,
+            "nombre_identificador": "metric_6",
+            "error_mse_promedio": 8185.8633
+        },
+        "top_5_metrica": {
+            "indice_variable": 0,
+            "nombre_identificador": "metric_1",
+            "error_mse_promedio": 2654.7573
+        }
+    }
+}

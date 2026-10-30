@@ -1,0 +1,27 @@
+# Entornos virtuales
+venv/
+env/
+ENV/
+.env
+
+# Caché de Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Datos crudos y temporales pesados (se bajan vía script)
+data/raw/
+data/processed/
+
+# Checkpoints y temporales de Jupyter / VS Code
+.ipynb_checkpoints/
+.vscode/
+.DS_Store
+
+# Archivos de visualización temporal
+results/figures/*.png
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
