@@ -58,11 +58,16 @@ Plataforma de inferencia para telemetría multivariada de servidores (**Benchmar
 Implementa modelos de **Deep Learning (Autoencoder en PyTorch)** para identificar comportamientos degradados e incidentes operativos.
 """)
 
+# Constantes del pipeline
+WINDOW_SIZE = 60
+N_CHANNELS = 38
+INPUT_DIM = WINDOW_SIZE * N_CHANNELS  # 2280
+
 # Barra Lateral
 st.sidebar.header("⚙️ Configuración del Pipeline")
 data_source = st.sidebar.radio(
     "Fuente de datos de telemetría:",
-    ("Dataset de Muestra (Machine 1-1)", "Cargar archivo CSV personalizado")
+    ("Dataset de Muestra (Machine 1-1)", "Cargar archivo (.csv / .txt) personalizado")
 )
 
 threshold_p = st.sidebar.slider(
@@ -73,10 +78,6 @@ threshold_p = st.sidebar.slider(
     step=0.1,
     help="Define el percentil estadístico del error de reconstrucción sobre el cual una ventana se clasifica como anomalía."
 )
-
-WINDOW_SIZE = 60
-N_CHANNELS = 38
-INPUT_DIM = WINDOW_SIZE * N_CHANNELS  # 2280
 
 df_input = None
 
@@ -89,23 +90,67 @@ def get_sample_telemetry():
     cols = [f"channel_{i+1}" for i in range(N_CHANNELS)]
     return pd.DataFrame(data, columns=cols)
 
+def parse_telemetry_file(uploaded_file):
+    """
+    Parsea de forma robusta archivos .csv o .txt delimitados por comas o espacios,
+    soportando tanto datasets con encabezados como datos crudos numéricos de SMD.
+    """
+    try:
+        # Intentar lectura inicial asumiendo delimitador por comas y posibles encabezados
+        uploaded_file.seek(0)
+        df_trial = pd.read_csv(uploaded_file)
+        
+        # Verificar si la primera fila era puramente numérica (caso de .txt crudo de SMD)
+        first_row_numeric = False
+        try:
+            [float(c) for c in df_trial.columns]
+            first_row_numeric = True
+        except ValueError:
+            first_row_numeric = False
+
+        if df_trial.shape[1] != N_CHANNELS or first_row_numeric:
+            # Reintentar sin encabezado y con detección flexible de delimitador
+            uploaded_file.seek(0)
+            df_trial = pd.read_csv(uploaded_file, header=None, sep=None, engine='python')
+        
+        # Si aún no coincide, forzar split por coma sin header
+        if df_trial.shape[1] != N_CHANNELS:
+            uploaded_file.seek(0)
+            df_trial = pd.read_csv(uploaded_file, header=None, sep=',')
+
+        # Asignar nombres estándar a las columnas si vienen indexadas numéricamente
+        if df_trial.shape[1] == N_CHANNELS:
+            if all(isinstance(c, int) for c in df_trial.columns) or first_row_numeric:
+                df_trial.columns = [f"channel_{i+1}" for i in range(N_CHANNELS)]
+            # Convertir todas las columnas a tipo float
+            df_trial = df_trial.apply(pd.to_numeric, errors='coerce')
+            
+        return df_trial
+    except Exception as err:
+        st.sidebar.error(f"❌ Error al interpretar el archivo: {str(err)}")
+        return None
+
 if data_source == "Dataset de Muestra (Machine 1-1)":
     df_input = get_sample_telemetry()
-    st.sidebar.success("✅ Muestra cargada: 180 registros con 38 canales.")
+    st.sidebar.success(f"✅ Muestra cargada: 180 registros con {N_CHANNELS} canales.")
 else:
-    uploaded = st.sidebar.file_uploader("Subir CSV de telemetría (38 canales):", type=["csv"])
+    uploaded = st.sidebar.file_uploader(
+        "Subir telemetría de servidor (.csv o .txt):", 
+        type=["csv", "txt"],
+        help="Admite archivos .csv o archivos crudos .txt delimitados por comas del benchmark SMD."
+    )
     if uploaded is not None:
-        try:
-            temp_df = pd.read_csv(uploaded)
-            if temp_df.shape[1] != N_CHANNELS:
-                st.sidebar.error(f"❌ Error de validación: Se esperaban {N_CHANNELS} columnas, pero el archivo contiene {temp_df.shape[1]}.")
-            elif len(temp_df) < WINDOW_SIZE:
-                st.sidebar.error(f"❌ Error de validación: Se requieren al menos {WINDOW_SIZE} filas para formar ventanas temporales (el archivo tiene {len(temp_df)}).")
+        parsed_df = parse_telemetry_file(uploaded)
+        if parsed_df is not None:
+            if parsed_df.shape[1] != N_CHANNELS:
+                st.sidebar.error(f"❌ Error de validación: Se esperaban {N_CHANNELS} columnas métricas, pero se detectaron {parsed_df.shape[1]}.")
+            elif len(parsed_df) < WINDOW_SIZE:
+                st.sidebar.error(f"❌ Error de validación: Se requieren al menos {WINDOW_SIZE} registros temporales (el archivo contiene {len(parsed_df)}).")
+            elif parsed_df.isna().sum().sum() > 0:
+                st.sidebar.error("❌ Error de validación: El archivo contiene valores nulos o caracteres incompatibles.")
             else:
-                df_input = temp_df
-                st.sidebar.success("✅ Archivo CSV validado correctamente.")
-        except Exception as e:
-            st.sidebar.error(f"❌ Error al leer el archivo CSV: {str(e)}")
+                df_input = parsed_df
+                st.sidebar.success(f"✅ Archivo validado correctamente: {uploaded.name} ({len(df_input)} registros, {N_CHANNELS} canales).")
 
 # Inspección de datos
 if df_input is not None:
@@ -220,5 +265,6 @@ with st.expander("ℹ️ Acerca del Modelo, Metodología y Límites Operativos")
     * **Dimensiones de Entrada:** Ventanas temporales deslizantes de 60 marcas de tiempo sobre 38 canales ($60 \\times 38 = 2280$ dimensiones aplanadas).
     * **Espacio Latente:** 32 dimensiones con regularización mediante `Dropout` (0.2), `Batch Normalization` y activaciones `LeakyReLU`.
     * **Dataset:** Telemetría del benchmark industrial **Server Machine Dataset (SMD - Machine 1-1)**.
+    * **Formatos Admitidos:** Archivos `.csv` estructurados y archivos `.txt` crudos delimitados por comas.
     * **Paradigma de Operación:** Asistente SRE bajo enfoque *Human-in-the-Loop*.
     """)
