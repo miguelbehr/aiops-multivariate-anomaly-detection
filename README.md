@@ -5,6 +5,8 @@
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.28%2B-ff4b4b)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
+> 🚀 **Aplicación en Producción:** [https://aiops-multivariate-anomaly-detection-miguelbehr.streamlit.app/](https://aiops-multivariate-anomaly-detection-miguelbehr.streamlit.app/)
+
 Solución integral de AIOps para la monitorización predictiva y detección de anomalías en telemetría de servidores utilizando arquitecturas de Deep Learning (Autoencoders en PyTorch). El sistema permite anticipar degradaciones de servicio y mitigar caídas de infraestructura crítica mediante el modelado continuo de dependencias multivariadas.
 
 ---
