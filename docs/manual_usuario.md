@@ -13,7 +13,7 @@ La aplicación se encuentra disponible en la nube y puede ejecutarse de dos mane
   ```bash
   streamlit run app/app.py
   ```
-
+- **Video Pitch (Demostración y Defensa de 5 minutos):** https://youtu.be/V73xyra80nU
 ---
 
 ## 2. Requisitos de Datos de Entrada (Validación Defensiva)
