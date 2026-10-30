@@ -211,5 +211,7 @@ Este proyecto se distribuye bajo la licencia **MIT**. Consulta el archivo `LICEN
 ---
 
 ## 13. Videos del Proyecto
-* **Video Pitch (Presentación Ejecutiva y Demo de 5 min):** `[INSERTAR_ENLACE_YOUTUBE_O_DRIVE_AQUÍ]`
-* **Video de Preguntas (Defensa Técnica y Respuestas a la Rúbrica):** `[INSERTAR_ENLACE_YOUTUBE_O_DRIVE_AQUÍ]`
+* **Video Pitch (Presentación Ejecutiva y Demo de 5 min):** [Ver Video Pitch en YouTube](https://youtu.be/V73xyra80nU)
+* **Video de Preguntas (Defensa Técnica y Respuestas a la Rúbrica):** `[INSERTAR_ENLACE_YOUTUBE_O_DRIVE_AQUÍ]
+
+`
