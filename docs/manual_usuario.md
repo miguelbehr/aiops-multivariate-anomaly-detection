@@ -13,8 +13,25 @@ La aplicación se encuentra disponible en la nube y puede ejecutarse de dos mane
   ```bash
   streamlit run app/app.py
   ```
-- **Video Pitch (Demostración y Defensa de 5 minutos):** https://youtu.be/V73xyra80nU
 ---
+
+## 🎥 Entregables Audiovisuales Oficiales (Defensa de Proyecto)
+
+### 1. Video Pitch Ejecutivo (5 Minutos - Demostración en Vivo)
+[![Video Pitch - Sistema AIOps](https://img.youtube.com/vi/V73xyra80nU/0.jpg)](https://youtu.be/V73xyra80nU)
+- **Enlace directo:** [https://youtu.be/V73xyra80nU](https://youtu.be/V73xyra80nU)
+
+---
+
+### 2. Video de Defensa Técnica (10 Preguntas Clave del Tribunal)
+[![Video Defensa Técnica - 10 Preguntas](https://img.youtube.com/vi/J8KGUHYcSHw/0.jpg)](https://youtu.be/J8KGUHYcSHw)
+- **Enlace directo:** [https://youtu.be/J8KGUHYcSHw](https://youtu.be/J8KGUHYcSHw)
+
+---
+
+### 🌐 Aplicación en Producción y Código Fuente
+- **Streamlit Cloud App:** [aiops-multivariate-anomaly-detection-miguelbehr.streamlit.app](https://aiops-multivariate-anomaly-detection-miguelbehr.streamlit.app/)
+- **Repositorio GitHub:** [github.com/miguelbehr/aiops-multivariate-anomaly-detection](https://github.com/miguelbehr/aiops-multivariate-anomaly-detection)
 
 ## 2. Requisitos de Datos de Entrada (Validación Defensiva)
 
