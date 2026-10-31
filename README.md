@@ -211,7 +211,20 @@ Este proyecto se distribuye bajo la licencia **MIT**. Consulta el archivo `LICEN
 ---
 
 ## 13. Videos del Proyecto
-* **Video Pitch (Presentación Ejecutiva y Demo de 5 min):** [Ver Video Pitch en YouTube](https://youtu.be/V73xyra80nU)
-* **Video de Preguntas (Defensa Técnica y Respuestas a la Rúbrica):** `[INSERTAR_ENLACE_YOUTUBE_O_DRIVE_AQUÍ]
+## 🎥 Entregables Audiovisuales Oficiales (Defensa de Proyecto)
 
-`
+### 1. Video Pitch Ejecutivo (5 Minutos - Demostración en Vivo)
+[![Video Pitch - Sistema AIOps](https://img.youtube.com/vi/V73xyra80nU/0.jpg)](https://youtu.be/V73xyra80nU)
+- **Enlace directo:** [https://youtu.be/V73xyra80nU](https://youtu.be/V73xyra80nU)
+
+---
+
+### 2. Video de Defensa Técnica (10 Preguntas Clave del Tribunal)
+[![Video Defensa Técnica - 10 Preguntas](https://img.youtube.com/vi/J8KGUHYcSHw/0.jpg)](https://youtu.be/J8KGUHYcSHw)
+- **Enlace directo:** [https://youtu.be/J8KGUHYcSHw](https://youtu.be/J8KGUHYcSHw)
+
+---
+
+### 🌐 Aplicación en Producción y Código Fuente
+- **Streamlit Cloud App:** [aiops-multivariate-anomaly-detection-miguelbehr.streamlit.app](https://aiops-multivariate-anomaly-detection-miguelbehr.streamlit.app/)
+- **Repositorio GitHub:** [github.com/miguelbehr/aiops-multivariate-anomaly-detection](https://github.com/miguelbehr/aiops-multivariate-anomaly-detection)
